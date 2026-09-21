@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { GameProvider, useGame } from './state';
 import { getLevel, EVENT_LEVEL } from './game/levels';
+import { IMG } from './assets/images';
 import Map from './components/Map';
 import Puzzle from './components/Puzzle';
 import type { PuzzleExit } from './components/Puzzle';
@@ -46,14 +47,14 @@ function Game() {
   };
 
   return (
-    <div className="mx-auto flex h-dvh max-w-md flex-col overflow-hidden bg-stone-900 font-sans shadow-2xl">
+    <div className="mx-auto flex h-dvh w-full max-w-md flex-col overflow-hidden bg-stone-900 font-sans shadow-2xl md:max-w-xl lg:max-w-2xl">
       {screen.name === 'title' && (
         <div className="relative flex h-full flex-col">
-          <img src="/img/village.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" />
+          <img src={IMG.village} alt="" className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80" />
-          <div className="relative z-10 mt-auto p-6 pb-12 text-center">
-            <img src="/img/rojan.png" alt="Rojan" className="mx-auto mb-4 h-28 w-28 rounded-full border-4 border-amber-300 object-cover shadow-2xl" />
-            <h1 className="text-4xl font-black tracking-tight text-amber-100 drop-shadow-lg">Rojan's Village</h1>
+          <div className="relative z-10 mt-auto p-6 pb-[max(3rem,env(safe-area-inset-bottom))] text-center">
+            <img src={IMG.rojan} alt="Rojan" className="mx-auto mb-4 h-28 w-28 rounded-full border-4 border-amber-300 object-cover shadow-2xl md:h-32 md:w-32" />
+            <h1 className="text-4xl font-black tracking-tight text-amber-100 drop-shadow-lg md:text-5xl">Rojan's Village</h1>
             <p className="mx-auto mt-2 max-w-[260px] text-sm font-semibold text-amber-50/85">
               Match, rebuild, and bring a mountain village back to life — one story at a time.
             </p>
@@ -106,6 +107,13 @@ function Game() {
       )}
 
       {cutscene && <Cutscene sceneId={cutscene} onDone={() => setCutscene(null)} />}
+
+      {/* ask landscape phones to rotate to portrait */}
+      <div className="rotate-hint fixed inset-0 z-[100] items-center justify-center bg-stone-950/95 p-6 text-center">
+        <div className="text-5xl">📱↻</div>
+        <p className="mt-3 text-lg font-extrabold text-amber-100">Please rotate to portrait</p>
+        <p className="mt-1 text-sm font-medium text-amber-200/70">Rojan's Village plays best in portrait mode.</p>
+      </div>
     </div>
   );
 }
