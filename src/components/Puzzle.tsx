@@ -326,7 +326,7 @@ export default function Puzzle({ level, onExit }: { level: LevelDef; onExit: (r:
   return (
     <div className="flex h-full flex-col bg-gradient-to-b from-orange-200 via-amber-100 to-emerald-100">
       {/* HUD */}
-      <div className="flex items-center justify-between px-3 pt-3">
+      <div className="flex items-center justify-between px-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
         <button onClick={() => onExit(null)} className="flex h-9 w-9 items-center justify-center rounded-full bg-black/25 text-white active:scale-95">✕</button>
         <div className="rounded-2xl bg-white/70 px-4 py-1 text-center shadow">
           <div className="text-[10px] font-bold uppercase tracking-wide text-stone-500">Moves</div>
@@ -368,7 +368,7 @@ export default function Puzzle({ level, onExit }: { level: LevelDef; onExit: (r:
         <div
           ref={gridRef}
           className="relative w-full touch-none select-none overflow-hidden rounded-2xl border-4 border-amber-800/40 bg-amber-900/20 shadow-xl"
-          style={{ maxWidth: `min(100%, calc((100dvh - 320px) * ${cols / rows}))`, aspectRatio: `${cols}/${rows}` }}
+          style={{ maxWidth: `min(100%, calc((100dvh - 320px) * ${cols / rows}))`, aspectRatio: `${cols}/${rows}`, containerType: 'inline-size' }}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
@@ -389,7 +389,7 @@ export default function Puzzle({ level, onExit }: { level: LevelDef; onExit: (r:
               <div key={t.id} className="absolute p-[3%] transition-transform duration-200 ease-out"
                 style={{ width: `${tilePct.w}%`, height: `${tilePct.h}%`, transform: `translate(${c * 100}%, ${r * 100}%)`, zIndex: 2 }}>
                 <div className={`relative flex h-full w-full items-center justify-center rounded-xl bg-gradient-to-br ${st.bg} shadow-md ${sel ? 'ring-4 ring-white scale-110' : ''} ${t.special === 'bomb' ? '!bg-gradient-to-br !from-stone-800 !to-stone-950' : ''}`}>
-                  <span className="text-[4.2cqw] leading-none" style={{ fontSize: 'min(5vw, 26px)' }}>
+                  <span className="leading-none" style={{ fontSize: `min(${70 / cols}cqw, 26px)` }}>
                     {t.special === 'bomb' ? '💥' : st.icon}
                   </span>
                   {t.special === 'stripeH' && <div className="pointer-events-none absolute inset-0 rounded-xl bg-[repeating-linear-gradient(0deg,transparent,transparent_4px,rgba(255,255,255,.75)_4px,rgba(255,255,255,.75)_7px)]" />}
@@ -419,7 +419,7 @@ export default function Puzzle({ level, onExit }: { level: LevelDef; onExit: (r:
           {board.flatMap((row, r) => row.map((cell, c) => cell.crate > 0 ? (
             <div key={`cr${r}-${c}`} className="pointer-events-none absolute p-[3%]" style={{ width: `${tilePct.w}%`, height: `${tilePct.h}%`, left: `${c * tilePct.w}%`, top: `${r * tilePct.h}%`, zIndex: 4 }}>
               <div className={`flex h-full w-full items-center justify-center rounded-lg border-2 border-amber-950/60 bg-gradient-to-br ${cell.crate === 2 ? 'from-amber-700 to-amber-900' : 'from-amber-600 to-amber-800'} shadow-inner`}>
-                <span style={{ fontSize: 'min(5vw, 24px)' }}>📦</span>
+                <span style={{ fontSize: `min(${62 / cols}cqw, 22px)` }}>📦</span>
                 {cell.crate === 2 && <span className="absolute bottom-0.5 right-1 text-[9px] font-black text-amber-200">2</span>}
               </div>
             </div>
@@ -428,7 +428,7 @@ export default function Puzzle({ level, onExit }: { level: LevelDef; onExit: (r:
           {/* fx pops */}
           {fx.map((f) => (
             <div key={f.id} className="pointer-events-none absolute flex items-center justify-center" style={{ width: `${tilePct.w}%`, height: `${tilePct.h}%`, left: `${f.c * tilePct.w}%`, top: `${f.r * tilePct.h}%`, zIndex: 10 }}>
-              <span className="animate-[pop_.45s_ease-out_forwards] text-xl">{f.icon}</span>
+              <span className="animate-[pop_.45s_ease-out_forwards]" style={{ fontSize: `min(${70 / cols}cqw, 24px)` }}>{f.icon}</span>
             </div>
           ))}
 
@@ -442,7 +442,7 @@ export default function Puzzle({ level, onExit }: { level: LevelDef; onExit: (r:
       </div>
 
       {/* boosters */}
-      <div className="flex justify-center gap-3 pb-4">
+      <div className="flex justify-center gap-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
         {([
           { kind: 'hammer' as const, icon: '🔨', label: 'Hammer', action: () => setHammerMode((h) => !h) },
           { kind: 'moves' as const, icon: '➕', label: '+5 moves', action: boosterMoves },

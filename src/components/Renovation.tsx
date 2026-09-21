@@ -85,7 +85,7 @@ export default function Renovation({ roomId, onBack, onCutscene }: Props) {
       </div>
 
       {/* task list */}
-      <div className="flex-1 space-y-2.5 overflow-y-auto p-4 pb-8">
+      <div className="flex-1 space-y-2.5 overflow-y-auto p-4 pb-[max(2rem,env(safe-area-inset-bottom))]">
         {room.tasks.map((task, i) => {
           const done = save.tasksDone.includes(task.id);
           const prevDone = i === 0 || save.tasksDone.includes(room.tasks[i - 1].id);

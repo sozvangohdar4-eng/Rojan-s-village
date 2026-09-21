@@ -20,7 +20,7 @@ export function Pill({ icon, value, onClick, pulse }: { icon: string; value: Rea
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-1 rounded-full bg-black/35 px-2.5 py-1 text-xs font-bold text-white backdrop-blur-sm ${pulse ? 'animate-pulse' : ''} ${onClick ? 'active:scale-95' : 'cursor-default'}`}
+      className={`flex items-center gap-1 whitespace-nowrap rounded-full bg-black/35 px-2 py-1 text-[11px] font-bold text-white backdrop-blur-sm sm:px-2.5 sm:text-xs ${pulse ? 'animate-pulse' : ''} ${onClick ? 'active:scale-95' : 'cursor-default'}`}
     >
       <span className="text-sm leading-none">{icon}</span>
       <span>{value}</span>
@@ -40,9 +40,13 @@ export function Avatar({ npcId, size = 'md' }: { npcId: string; size?: 'sm' | 'm
 
 export function Modal({ children, onClose, wide }: { children: ReactNode; onClose?: () => void; wide?: boolean }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      style={{ padding: 'max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left))' }}
+      onClick={onClose}
+    >
       <div
-        className={`w-full ${wide ? 'max-w-md' : 'max-w-sm'} animate-[popin_.25s_ease-out] rounded-3xl border-4 border-amber-200/80 bg-gradient-to-b from-amber-50 to-orange-100 p-5 shadow-2xl`}
+        className={`w-full ${wide ? 'max-w-md' : 'max-w-sm'} max-h-[100%] animate-[popin_.25s_ease-out] overflow-y-auto overscroll-contain rounded-3xl border-4 border-amber-200/80 bg-gradient-to-b from-amber-50 to-orange-100 p-5 shadow-2xl`}
         onClick={(e) => e.stopPropagation()}
       >
         {children}

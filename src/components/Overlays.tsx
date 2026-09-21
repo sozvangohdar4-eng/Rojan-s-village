@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { roomById, npcById, OPENING, DAILY_REWARDS, HELPER_TASKS, FRIEND_LEADERBOARD } from '../data/story';
 import { useGame, todayStr, MAX_LIVES } from '../state';
+import { IMG } from '../assets/images';
 import { Avatar, BigButton, Modal, AdModal } from './ui';
 
 // ---------- Cutscene (opening + room completions) ----------
@@ -8,7 +9,7 @@ import { Avatar, BigButton, Modal, AdModal } from './ui';
 export function Cutscene({ sceneId, onDone }: { sceneId: string; onDone: () => void }) {
   const { update } = useGame();
   const scene = sceneId === 'opening'
-    ? { lines: OPENING, image: '/img/village.jpg', title: 'Coming Home' }
+    ? { lines: OPENING, image: IMG.village, title: 'Coming Home' }
     : { lines: roomById(sceneId).cutscene, image: roomById(sceneId).image, title: `${roomById(sceneId).name} — Restored` };
   const [i, setI] = useState(0);
   const line = scene.lines[i];
@@ -39,11 +40,11 @@ export function Cutscene({ sceneId, onDone }: { sceneId: string; onDone: () => v
           <span className="rounded-full bg-black/50 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-amber-300">{scene.title}</span>
         </div>
       </div>
-      <div className="relative -mt-28 px-4 pb-8">
+      <div className="relative -mt-28 px-4 pb-[max(2rem,env(safe-area-inset-bottom))]">
         <div className="mx-auto max-w-sm animate-[popin_.25s_ease-out] rounded-3xl border-4 border-amber-200/80 bg-gradient-to-b from-amber-50 to-orange-100 p-4 shadow-2xl" key={i}>
           <div className="flex items-start gap-3">
             {isRojan ? (
-              <img src="/img/rojan.png" alt="Rojan" className="h-16 w-16 shrink-0 rounded-full object-cover shadow-md ring-2 ring-amber-300" />
+              <img src={IMG.rojan} alt="Rojan" className="h-16 w-16 shrink-0 rounded-full object-cover shadow-md ring-2 ring-amber-300" />
             ) : (
               <Avatar npcId={npcIdFromName(line.speaker)} size="lg" />
             )}

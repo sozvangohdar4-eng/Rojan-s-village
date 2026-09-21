@@ -1,3 +1,5 @@
+import { IMG } from '../assets/images';
+
 // ---------- NPCs ----------
 
 export interface NPC {
@@ -48,7 +50,7 @@ export const ROOMS: Room[] = [
     id: 'bakery',
     name: 'The Old Bakery',
     npcId: 'ferhad',
-    image: '/img/bakery.jpg',
+    image: IMG.bakery,
     unlockLevel: 1,
     cutscene: [
       { speaker: 'Xalê Ferhad', text: 'Smell that? First bread from this tandoor in eleven years. Your grandmother Xezal used to stand right there, tapping her foot until I gave her the crust.' },
@@ -92,7 +94,7 @@ export const ROOMS: Room[] = [
     id: 'teahouse',
     name: 'The Tea House',
     npcId: 'gule',
-    image: '/img/teahouse.jpg',
+    image: IMG.teahouse,
     unlockLevel: 4,
     cutscene: [
       { speaker: 'Dayê Gulê', text: 'Sit, sit! First glass is yours, Rojan. In this çayxane, news travels faster than the samovar boils.' },
