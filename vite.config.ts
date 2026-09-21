@@ -10,8 +10,6 @@ const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/Rojan-s-village/',
-  plugins: [react()],
   plugins: [react(), tailwindcss(), viteSingleFile()],
   server: {
     host: true,
